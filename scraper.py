@@ -7,10 +7,10 @@ from time import time  # calculate the time
 from time import sleep  # pause the loop
 from random import randint  # Randomize sleep time
 from IPython.core.display import clear_output  # Stack the output
-from warnings import warn  # Warn when something goes wrong
+from warnings import warn  # Warn when something goes wrongxs
 
-pages = [str(i) for i in range(1, 252, 50)]
-years_url = [str(i) for i in range(2000, 2019)]
+pages = [str(i) for i in range(1, 152, 50)]
+years_url = [str(i) for i in range(1968, 2019)]
 
 names = []
 years = []
@@ -53,7 +53,7 @@ for year_url in years_url:
             warn('Request: {}; Status code: {}'.format(requests, response.status_code))
 
         # Break the loop if the number of requests is over 115
-        if requests > 115:
+        if requests > 205:
             warn('Number of requests was greater than expected.')
             break
 
@@ -71,8 +71,12 @@ for year_url in years_url:
             names.append(name)
 
             # Getting the year
-            year = int(container.h3.find('span', class_='lister-item-year text-muted unbold').text.strip('(IIIVX) '))
-            years.append(year)
+            try:
+                year = int(container.h3.find('span', class_='lister-item-year text-muted unbold').text.strip('(IIIVX) '))
+                years.append(year)
+            except:
+                year_null = container.h3.find('span', class_ = 'lister-item-year').text
+                years.append(year_null)
 
             # Getting the rating
             imdb = float(container.strong.text)
@@ -96,8 +100,12 @@ for year_url in years_url:
             genre.append(genr)
 
             # Getting the duration of the movie
-            duration = [float(s) for s in container.find('span', 'runtime').text.split() if s.isdigit()][0]
-            runtime.append(duration)
+            try:
+                duration = [float(s) for s in container.find('span', 'runtime').text.split() if s.isdigit()][0]
+                runtime.append(duration)
+            except:
+                dur_null = np.NaN
+                runtime.append(dur_null)
 
             # Getting the director
             try:
