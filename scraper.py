@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup  # Extracting data
 from time import time  # calculate the time
 from time import sleep  # pause the loop
 from random import randint  # Randomize sleep time
-from IPython.core.display import clear_output  # Stack the output
 from warnings import warn  # Warn when something goes wrongxs
 
 pages = [str(i) for i in range(1, 152, 50)]
