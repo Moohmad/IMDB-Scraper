@@ -8,8 +8,15 @@ from time import sleep  # pause the loop
 from random import randint  # Randomize sleep time
 from warnings import warn  # Warn when something goes wrongxs
 
-pages = [str(i) for i in range(1, 152, 50)]
-years_url = [str(i) for i in range(1968, 2019)]
+# Get pages to scrape
+page = int(input("Enter number of pages to scrape: "))
+page_multiplier = page * 50 + 2
+pages = [str(i) for i in range(1, page_multiplier, 50)]
+# Get years to scrape
+year_start = int(input("Enter the year you want to start from: "))
+year_end = int(input("Enter the year you want to finish on: "))
+year_multiplier = year_end + 1
+years_url = [str(i) for i in range(year_start, year_multiplier)]
 
 names = []
 years = []
@@ -44,8 +51,6 @@ for year_url in years_url:
         requests += 1
         elapsed_time = time() - start_time
         print('Request:{}; Frequency: {} requests/s'.format(requests, requests / elapsed_time))
-        # Stack the output
-        clear_output(wait=True)
 
         # Put a warning if != 200 status codes
         if response.status_code != 200:
